@@ -1,7 +1,7 @@
 /*
  * Connector to Redmine from Google Apps Scripts platform.
  *
- * Copyright (c) 2011,2012 Emergya
+ * Copyright (c) 2012 Emergya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,16 +17,36 @@
  *
  */
 
-var GITHUB_URL = 'http://github.com';
+var GITHUB_API_URL = 'https://api.github.com';
 
 // TODO: this should be obtained from a configuration dialog.
 var API_ACCESS_KEY = 'YOUR_API_ACCESS_KEY_HERE!';
 
-var Github = (function() {
+var GitHub = (function() {
 
-  function Github() {
+  function GitHub() {
   }
+  
+  GitHub.prototype.getCommits = function (user, project) {
+    // TODO: Sanity check!
+    
+    var uri = GITHUB_API_URL + '/repos/' + user + '/' + project + '/commits';
+    
+    var response = UrlFetchApp.fetch(uri);
+    
+    var object = eval(response.getContentText());
+    
+    Logger.log(response.getContentText());
+    Logger.log(object[0].commit.message);
+    
+    return object;
+  };
 
-  return Github;
+  return GitHub;
 
 })();
+
+function stub() {
+  gh = new GitHub();
+  gh.getCommits('gloob', 'github-google_apps_scripts');
+}
