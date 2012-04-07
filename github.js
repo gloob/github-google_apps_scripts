@@ -24,13 +24,16 @@ var API_ACCESS_KEY = 'YOUR_API_ACCESS_KEY_HERE!';
 
 var GitHub = (function() {
 
-  function GitHub() {
+  // base_uri and api_key could be specified at initialization time
+  function GitHub(base_uri, api_key) {
+    this.base_uri = base_uri || GITHUB_API_URL;
+    this.api_key = api_key || API_ACCESS_KEY;
   }
   
   GitHub.prototype.getCommits = function (user, project) {
     // TODO: Sanity check!
     
-    var uri = GITHUB_API_URL + '/repos/' + user + '/' + project + '/commits';
+    var uri = this.base_uri + '/repos/' + user + '/' + project + '/commits';
     
     var response = UrlFetchApp.fetch(uri);
     
@@ -47,6 +50,6 @@ var GitHub = (function() {
 })();
 
 function stub() {
-  gh = new GitHub();
+  gh = new GitHub(GITHUB_API_URL);
   gh.getCommits('gloob', 'github-google_apps_scripts');
 }
