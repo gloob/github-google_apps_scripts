@@ -118,6 +118,32 @@ var GitHub = (function() {
     return this.retrieveAll(api_call);
   };
 
+  // /repos/:user/:repo/forks
+  GitHub.prototype.getReposForks = function (user, project) {
+    var api_call = '/repos/' + user + '/' + project + '/forks';
+    return this.retrieveAll(api_call);
+  };
+
+  // Orgs API http://developer.github.com/v3/orgs/
+  // /orgs/:org/members
+  GitHub.prototype.getOrgMembers = function (org) {
+    var api_call = '/orgs/' + org + '/members';
+    return this.retrieveAll(api_call);
+  };
+
+  // Users API http://developer.github.com/v3/users/
+  // /users/:user
+  GitHub.prototype.getUser = function (user) {
+    var api_call = '/users/' + user;
+    return this.retrieveAll(api_call);
+  };
+
+  // /users/:user/repos
+  GitHub.prototype.getUserRepos = function (user) {
+    var api_call = '/users/' + user + '/repos';
+    return this.retrieveAll(api_call);
+  };
+
   return GitHub;
 
 })();
