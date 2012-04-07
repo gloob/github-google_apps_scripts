@@ -34,7 +34,7 @@ var GitHub = (function() {
     
     var response = UrlFetchApp.fetch(uri);
     
-    var object = eval(response.getContentText());
+    var object = Utilities.jsonParse(response.getContentText());
     
     Logger.log(response.getContentText());
     Logger.log(object[0].commit.message);
